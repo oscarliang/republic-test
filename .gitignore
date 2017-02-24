@@ -1,0 +1,11 @@
+./node_modules
+./.tmp
+./.sass-cache
+./bower_components
+node_modules
+./coverage
+.tmp
+.sass-cache
+bower_components
+coverage
+/nbproject/private/
