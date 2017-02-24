@@ -94,7 +94,6 @@ const photos = [
         });
 
         it('add filterTitle on the component ', () => {
-            console.log(wrapper.find('.count').html());
             expect(wrapper.find('.count').text()).toEqual('1')
         });
     });
