@@ -36,12 +36,12 @@ class PhotoContainer extends React.Component {
         let count = 0;
         let self = this;
         this.props.records.forEach((photo, i) => {
-            // if (nextProps.filterTitle !== undefined && photo.title.indexOf(nextProps.filterTitle) === -1) {
-            //     return;
-            // }
-            // if (nextProps.filterAlbumId !== ''  && String(photo.albumId) !== String(nextProps.filterAlbumId)) {
-            //     return;
-            // }
+            if (nextProps.filterTitle !== undefined && photo.title.indexOf(nextProps.filterTitle) === -1) {
+                return;
+            }
+            if (nextProps.filterAlbumId !== ''  && String(photo.albumId) !== String(nextProps.filterAlbumId)) {
+                return;
+            }
             if (count <= self.state.pageSize -1) {
                 rows.push(
                     <tr key={i}>
