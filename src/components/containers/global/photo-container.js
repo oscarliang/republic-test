@@ -13,12 +13,48 @@ class PhotoContainer extends React.Component {
         this.handleFilterTitleChange = this.handleFilterTitleChange.bind(this);
         this.handleFilterAlbumIdChange = this.handleFilterAlbumIdChange.bind(this);
         this.state = {
-            pageSize: 20
+            pageSize: 20,
+            showRecords: [],
+            recordSize: 0
+
         }
     }
 
     componentDidMount() {
         getPhotosAPI()
+        .done(()=>{
+          this.updateRecords(this.props);
+        });
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.updateRecords(nextProps);
+    }
+
+    updateRecords(nextProps){
+        let rows = [];
+        let count = 0;
+        let self = this;
+        this.props.records.forEach((photo, i) => {
+            if (nextProps.filterTitle !== undefined && photo.title.indexOf(nextProps.filterTitle) === -1) {
+                return;
+            }
+            if (nextProps.filterAlbumId !== ''  && String(photo.albumId) !== String(nextProps.filterAlbumId)) {
+                return;
+            }
+            if (count <= self.state.pageSize -1) {
+                rows.push(
+                    <tr key={i}>
+                        <td>{photo.id}</td>
+                        <td>{photo.albumId}</td>
+                        <td><img height="20px" role="presentation" src={photo.thumbnailUrl}/></td>
+                        <td>{photo.title}</td>
+                    </tr>);
+                }
+                count++
+            });
+        this.setState({showRecords: rows });
+        this.setState({recordSize: count });
     }
 
     handleFilterTitleChange(e){
@@ -31,21 +67,21 @@ class PhotoContainer extends React.Component {
         store.dispatch(actions.setPhotoFilterAlbumId(filterAlbumId));
     }
 
-    _renderTableHeader(count){
+    _renderTableHeader(){
         return (
             <div className="row">
                 <div className="col-lg-6">
                     <i className="fa fa-align-justify"></i> Combined All Table
                 </div>
                 <div className="col-lg-6 text-right">
-                    Total <b className="count">{count}</b> Items, <b>{this.state.pageSize}</b> records per page
+                    Total <b className="count">{this.state.recordSize}</b> Items, <b>{this.state.pageSize}</b> records per page
                 </div>
             </div>
         )
     }
 
-    _renderTableFoot(totalCount){
-        let pagesNum = Math.round(totalCount/this.state.pageSize);
+    _renderTableFoot(){
+        let pagesNum = Math.round(this.state.recordSize/this.state.pageSize);
         return (
             <nav>
             <ul className="pagination">
@@ -64,7 +100,7 @@ class PhotoContainer extends React.Component {
         )
     }
 
-    _renderTable(rows){
+    _renderTable(){
         return (
             <table className="table table-bordered table-striped table-condensed">
                 <thead>
@@ -101,44 +137,22 @@ class PhotoContainer extends React.Component {
                         </th>
                     </tr>
                 </thead>
-                <tbody>{rows}</tbody>
+                <tbody>{this.state.showRecords}</tbody>
             </table>
         )
     }
 
     render() {
-        let rows = [];
-        let count = 0;
-        let self = this;
-        this.props.records.forEach((photo, i) => {
-            if (self.props.filterTitle !== undefined && photo.title.indexOf(self.props.filterTitle) === -1) {
-                return;
-            }
-            if (self.props.filterAlbumId !== ''  && String(photo.albumId) !== String(self.props.filterAlbumId)) {
-                return;
-            }
-            if (count <= self.state.pageSize -1) {
-                rows.push(
-                    <tr key={i}>
-                        <td>{photo.id}</td>
-                        <td>{photo.albumId}</td>
-                        <td><img height="20px" role="presentation" src={photo.thumbnailUrl}/></td>
-                        <td>{photo.title}</td>
-                    </tr>);
-                }
-                count++
-            });
-
             return (
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="card">
                             <div className="card-header">
-                                {this._renderTableHeader(count)}
+                                {this._renderTableHeader()}
                             </div>
                             <div className="card-block">
-                                {this._renderTable(rows)}
-                                {this._renderTableFoot(count)}
+                                {this._renderTable()}
+                                {this._renderTableFoot()}
                             </div>
                         </div>
                     </div>
