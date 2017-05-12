@@ -1,4 +1,4 @@
-import PhotoContainer from './global/photo-container'
+import PhotoContainer from './photo/photo-container'
 
 const containers = {
     PhotoContainer: PhotoContainer

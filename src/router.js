@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
 // Containers
 import containers from './components/containers'
-import Full from './components/views/Full/'
+import Full from './components/views/Full/Full'
 
 import { syncHistoryWithStore} from 'react-router-redux'
 

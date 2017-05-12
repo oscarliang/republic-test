@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
-class Aside extends Component {
+class Aside extends React.Component {
   render() {
     return (
       <aside className="aside-menu">

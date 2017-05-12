@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router'
 
-class Sidebar extends Component {
+class Sidebar extends React.Component {
 
   handleClick(e) {
     e.preventDefault();

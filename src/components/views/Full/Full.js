@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import Header from '../Header/';
-import Sidebar from '../Sidebar/';
-import Aside from '../Aside/';
-import Footer from '../Footer/';
+import React from 'react';
+import Header from '../Header/Header';
+import Sidebar from '../Sidebar/Sidebar';
+import Aside from '../Aside/Aside';
+import Footer from '../Footer/Footer';
 
 import Breadcrumbs from 'react-breadcrumbs';
 
-class Full extends Component {
+class Full extends React.Component {
   render() {
     return (
       <div className="app">
