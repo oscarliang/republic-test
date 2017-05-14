@@ -13802,6 +13802,11 @@ nav.sidebar-nav .form-control, nav.sidebar-nav .daterangepicker .input-mini, .da
   height: 310px;
   margin: 0 auto; }
 
+.autocompleteWrapper {
+  width: 1000px;
+  padding-left: 0px;
+  padding-right: 0px; }
+
 .email-app {
   display: flex;
   flex: 1;

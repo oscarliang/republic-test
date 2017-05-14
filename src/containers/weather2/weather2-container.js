@@ -1,32 +1,58 @@
 import React from 'react';
-import $ from 'jquery';
-import Meteogram from '../../components/weather2/weather2'; 
+import { connect } from 'react-redux'
+import Meteogram from '../../components/weather2/weather2';
+import AutoComplete from '../../components/autocomplete/autocomplete'
+import { getWeatherAPI } from '../../api/weather-api'
 
 class Weather2Container extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props)
+        this.state = {
+            keywords: 'new york',
+            returnGeoCode: false,
+            loadingText: "Loading data from external source"
+        }
+    }
 
-    componentDidMount() {
-        let location = "los angeles";
-        $.ajax({
-            dataType: 'json',
-            url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22nome%2C%20'+ location +'%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
-            success: function (rs) {
-                let json = rs.query.results.channel.item;
-                window.meteogram = new Meteogram(json, 'container', location);
-            },
-            error: Meteogram.prototype.error
-        });
+    componentWillReceiveProps(nextProps) {
+        if (typeof nextProps !== 'undefined' && nextProps !== null) {
+            let location = nextProps.searchkeywords;
+                        // alert(location);
+            this.getWeatherForecast(location);
+        }
+    }
+
+    getWeatherForecast(location) {
+        var self = this;
+        self.refs.container.innerHTML = '<i class="fa fa-frown-o"></i> ' + this.state.loadingText;
+        getWeatherAPI(location)
+            .done((rs) => { 
+                if (rs.query.results !== null) {
+                    let json = rs.query.results.channel.item;
+                    window.meteogram = new Meteogram(json, 'container', location);
+                } else {
+                    self.refs.container.innerHTML = '<i class="fa fa-frown-o"></i> Failed loading data, please try again later';
+                }
+            });
     }
 
     render() {
-        return <div id="container" >
-            <div id="loading">
-                <i ></i> Loading data from external source
-    </div>
-        </div>
+        return (
+            <div>
+                <AutoComplete keywords={this.state.keywords} returnGeoCode={this.state.returnGeoCode} />
+                <div id="container" ref="container">
+                    <div id="loading">
+                        {this.state.loadingText}
+                    </div>
+                </div>
+            </div>
+        );
     }
+
 }
 
-export default Weather2Container;
+const mapStateToProps = (store) => ({
+    searchkeywords: store.cityState.searchkeywords
+});
+
+export default connect(mapStateToProps)(Weather2Container)

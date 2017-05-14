@@ -193,7 +193,7 @@ Meteogram.prototype.tooltipFormatter = function (tooltip) {
 
     // Create the header with reference to the time interval
     var index = tooltip.points[0].point.index,
-        ret = '<small>' + Highcharts.dateFormat('%A, %b %e', tooltip.x)  + '</small><br>';
+        ret = '<small>' + Highcharts.dateFormat('%A, %b %e', tooltip.x) + '</small><br>';
 
     // Symbol text
     ret += '<b>' + this.symbolNames[index] + '</b>';
@@ -433,12 +433,22 @@ Meteogram.prototype.getSymbolCodeByName = function (weatherName) {
             return "01d";
         case "Mostly Cloudy":
             return "04";
+        case "Cloudy":
+            return "04";
         case "Rain":
             return "09";
-        case "thunderstorm":
+        case "Showers":
+            return "09";
+        case "Thunderstorms":
             return "11";
         case "Scattered Thunderstorms":
             return "10";
+        case "Partly Rain":
+            return "18";
+        case "Partly Cloud":
+            return "17";
+        case "Breezy":
+            return "04";
         default:
             break;
     }
@@ -466,7 +476,7 @@ Meteogram.prototype.parseYrData = function () {
     // JavaScript by json_encode.
     $.each(json.forecast, function (i, node) {
         // Get the times - only Safari can't parse ISO8601 so we need to do some replacements
-        var from = Date.parse(node.date)-14*3600;
+        var from = Date.parse(node.date) - 14 * 3600;
 
         var highTemp = meteogram.convertFahrenheitToCelsius(node.high);
         var lowTemp = meteogram.convertFahrenheitToCelsius(node.low);

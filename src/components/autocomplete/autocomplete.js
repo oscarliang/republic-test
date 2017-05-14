@@ -8,6 +8,7 @@ class AutoComplete extends React.Component {
         super(props)
         this.state = {
             address: this.props.keywords,
+            returnGeoCode: this.props.returnGeoCode,
             geocodeResults: null,
             loading: false
         }
@@ -29,20 +30,26 @@ class AutoComplete extends React.Component {
 
         store.dispatch(actions.setCitySearchkeywords(address));
 
-        geocodeByAddress(address, (err, { lat, lng }) => {
-            if (err) {
-                console.log('Oh no!', err)
+        if (this.state.returnGeoCode) {
+            geocodeByAddress(address, (err, { lat, lng }) => {
+                if (err) {
+                    console.log('Oh no!', err)
+                    this.setState({
+                        geocodeResults: this.renderGeocodeFailure(err),
+                        loading: false
+                    })
+                }
+                console.log(`Yay! got latitude and longitude for ${address}`, { lat, lng })
                 this.setState({
-                    geocodeResults: this.renderGeocodeFailure(err),
+                    geocodeResults: this.renderGeocodeSuccess(lat, lng),
                     loading: false
                 })
-            }
-            console.log(`Yay! got latitude and longitude for ${address}`, { lat, lng })
+            })
+        } else {
             this.setState({
-                geocodeResults: this.renderGeocodeSuccess(lat, lng),
                 loading: false
             })
-        })
+        }
     }
 
     handleChange(address) {
@@ -84,7 +91,7 @@ class AutoComplete extends React.Component {
             </div>)
 
         const inputProps = {
-            type: "text",
+            type: "search",
             value: this.state.address,
             onChange: this.handleChange,
             onBlur: () => { console.log('Blur event!'); },
@@ -97,7 +104,7 @@ class AutoComplete extends React.Component {
 
         return (
             <div className='row'>
-                <div className='container'>
+                <div className='container autocompleteWrapper'>
                     <PlacesAutocomplete
                         onSelect={this.handleSelect}
                         autocompleteItem={AutocompleteItem}
