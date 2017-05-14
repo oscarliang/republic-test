@@ -27,6 +27,7 @@ const AppRouter = ({ store }) => {
 				<Route path="donut" name="Donut" component={containers.DonutContainer}/>
 				<Route path="weather" name="Weather" component={containers.WeatherContainer}/>
 				<Route path="city" name="City" component={containers.CityContainer}/>
+				<Route path="weather2" name="Weather2" component={containers.Weather2Container}/>
 			</Route>
 		</Router>
 	)

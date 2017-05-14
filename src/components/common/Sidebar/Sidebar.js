@@ -34,6 +34,9 @@ class Sidebar extends React.Component {
             <li className="nav-item">
               <Link to={'/city'} className="nav-link"><i className="icon-user"></i> City </Link>
             </li>
+            <li className="nav-item">
+              <Link to={'/weather2'} className="nav-link"><i className="icon-user"></i> Weather2 </Link>
+            </li>
           </ul>
         </nav>
       </div>
