@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import store from '../../../store'
-import {getPhotosAPI} from '../../../api/photo-api'
-import * as actions from '../../../actions/photo-actions'
+import store from '../../store'
+import {getPhotosAPI} from '../../api/photo-api'
+import * as actions from '../../actions/photo-actions'
 
 class PhotoContainer extends React.Component {
     constructor(props) {

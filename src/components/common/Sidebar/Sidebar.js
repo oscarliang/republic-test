@@ -22,9 +22,18 @@ class Sidebar extends React.Component {
       <div className="sidebar">
         <nav className="sidebar-nav">
           <ul className="nav">
-    		<li className="nav-item">
-    		  <Link to={'/photo'} className="nav-link" activeClassName="active"><i className="icon-user"></i> User </Link>
-    		</li>
+            <li className="nav-item">
+              <Link to={'/photo'} className="nav-link" activeClassName="active"><i className="icon-user"></i> User </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={'/donut'} className="nav-link"><i className="icon-user"></i> Donut </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={'/weather'} className="nav-link"><i className="icon-user"></i> Weather </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={'/city'} className="nav-link"><i className="icon-user"></i> City </Link>
+            </li>
           </ul>
         </nav>
       </div>

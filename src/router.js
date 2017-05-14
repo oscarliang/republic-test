@@ -4,8 +4,8 @@ import React from 'react'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
 // Containers
-import containers from './components/containers'
-import Full from './components/views/Full/Full'
+import containers from './containers'
+import Full from './components/common/Full/Full'
 
 import { syncHistoryWithStore} from 'react-router-redux'
 
@@ -24,6 +24,9 @@ const AppRouter = ({ store }) => {
 			<Route path="/" name="Home" component={Full}>
 				<IndexRoute component={containers.PhotoContainer}/>
 				<Route path="photo" name="Photo" component={containers.PhotoContainer}/>
+				<Route path="donut" name="Donut" component={containers.DonutContainer}/>
+				<Route path="weather" name="Weather" component={containers.WeatherContainer}/>
+				<Route path="city" name="City" component={containers.CityContainer}/>
 			</Route>
 		</Router>
 	)

@@ -13770,6 +13770,10 @@ header.navbar > .img-avatar {
   height: 36px;
   margin: -3px 10px 0 10px; }
 
+#container {
+  width: 800px; height: 310px; margin: 0 auto
+}
+
 nav.sidebar-nav .form-control, nav.sidebar-nav .daterangepicker .input-mini, .daterangepicker nav.sidebar-nav .input-mini, nav.sidebar-nav .input-group > .ui-select-bootstrap > input.ui-select-search.form-control {
   border: 0;
   background: #22262e;
