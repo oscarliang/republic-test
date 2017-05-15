@@ -1,14 +1,15 @@
 import React from 'react'
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import store from '../../store'
+import classNames from 'classnames'
 import * as actions from '../../actions/city-actions'
 
 class AutoComplete extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            address: this.props.keywords,
-            returnGeoCode: this.props.returnGeoCode,
+            address: this.props.keywords,  //input location name
+            returnGeoCode: this.props.returnGeoCode,  //tag to decide will return the Geo lat or lng or not
             geocodeResults: null,
             loading: false
         }
@@ -22,12 +23,16 @@ class AutoComplete extends React.Component {
         this.handleSelect(this.state.address);
     }
 
+    /**
+     * Event to be trigger after the droplist is selected
+     */
     handleSelect(address) {
         this.setState({
             address,
             loading: true
         })
 
+        // dispatch the search keywords to the store
         store.dispatch(actions.setCitySearchkeywords(address));
 
         if (this.state.returnGeoCode) {
@@ -52,12 +57,15 @@ class AutoComplete extends React.Component {
         }
     }
 
+    handlereFresh() {
+        store.dispatch(actions.setCityRefresh(true));
+    }
+
     handleChange(address) {
         this.setState({
             address,
             geocodeResults: null
         })
-
     }
 
     renderGeocodeFailure(err) {
@@ -83,6 +91,15 @@ class AutoComplete extends React.Component {
             autocompleteContainer: 'Demo__autocomplete-container',
         }
 
+        // css className
+        const refreshClasses = classNames(
+            { 'fa': true },
+            { 'fa-refresh': true },
+            { 'locationRefresh': true },
+            { 'icon-refresh-animate': this.props.refreshIconState } // to control the refresh icon spinning
+        )
+
+
         const AutocompleteItem = ({ formattedSuggestion }) => (
             <div className="Demo__suggestion-item">
                 <i className='fa fa-map-marker Demo__suggestion-icon' />
@@ -105,6 +122,7 @@ class AutoComplete extends React.Component {
         return (
             <div className='row'>
                 <div className='container autocompleteWrapper'>
+                    <i id="refreshIcon" className={refreshClasses} aria-hidden="true" onClick={this.handlereFresh}></i>
                     <PlacesAutocomplete
                         onSelect={this.handleSelect}
                         autocompleteItem={AutocompleteItem}
@@ -114,8 +132,7 @@ class AutoComplete extends React.Component {
                     />
                     {this.state.loading ? <div><i className="fa fa-spinner fa-pulse fa-3x fa-fw Demo__spinner" /></div> : null}
                     {!this.state.loading && this.state.geocodeResults ?
-                        <div className='geocoding-results'>{this.state.geocodeResults}</div> :
-                        null}
+                        <div className='geocoding-results'>{this.state.geocodeResults}</div> : null}
                 </div>
             </div>
         )

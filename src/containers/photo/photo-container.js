@@ -16,7 +16,6 @@ class PhotoContainer extends React.Component {
             pageSize: 20,
             showRecords: [],
             recordSize: 0
-
         }
     }
 

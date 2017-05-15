@@ -439,6 +439,8 @@ Meteogram.prototype.getSymbolCodeByName = function (weatherName) {
             return "09";
         case "Showers":
             return "09";
+        case "Scattered Showers":
+            return "09";
         case "Thunderstorms":
             return "11";
         case "Scattered Thunderstorms":

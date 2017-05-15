@@ -8,3 +8,10 @@ export function setCitySearchkeywords(searchkeywords) {
         searchkeywords
     }
 }
+
+export function setCityRefresh(searchkeywordsFresh) {
+    return {
+        type: types.SET_CITY_FRESH,
+        searchkeywordsFresh
+    }
+}
