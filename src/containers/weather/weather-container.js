@@ -6,6 +6,7 @@ import * as actions from '../../actions/location-actions'
 import { getWeatherAPI } from '../../api/weather-api'
 import store from '../../store'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
+import { getWeatherCache, setWeatherCache } from '../../utils/cachFactory'
 
 class WeatherContainer extends React.Component {
     constructor(props) {
@@ -22,12 +23,13 @@ class WeatherContainer extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (typeof nextProps !== 'undefined' && nextProps !== null) {
             let location = nextProps.searchkeywords;
+            
+            //Start loading animation
+            this.beginLoading();
 
             //call the weather API
             this.getWeatherForecast(location);
 
-            //Start loading animation
-            this.beginLoading();
         }
     }
 
@@ -62,26 +64,39 @@ class WeatherContainer extends React.Component {
     getWeatherForecast(location) {
         var self = this;
         self.refs.container.innerHTML = '<i class="fa fa-smile-o"></i> ' + this.state.loadingText;
-        getWeatherAPI(location)
-            .done((rs) => {
-                //Yahoo API will have limit with request time. Sometime, can not get API result
-                if (rs.query.results !== null) {
-                    let forecastItems = rs.query.results.channel.item;
-                    window.meteogram = new Meteogram(forecastItems, 'container', location);
-                } else {
-                    //we try three times if the API call failed
-                    if (self.state.resendingCount < 3){
-                        self.setState({resendingCount: self.state.resendingCount + 1});
-                        self.getWeatherForecast(location);
-                        return
+
+        let weatherCachData = getWeatherCache(location);
+
+        //check the location has been visit or not
+        if (weatherCachData !== null) {
+            //run the apps from cache data
+            window.meteogram = new Meteogram(weatherCachData, 'container', location);
+            //Ending loading animation
+            self.endLoading();
+        } else {
+            //run the apps from weather API
+            getWeatherAPI(location)
+                .done((rs) => {
+                    //Yahoo API will have limit with request time. Sometime, can not get API result
+                    if (rs.query.results !== null) {
+                        let forecastItems = rs.query.results.channel.item;
+                        setWeatherCache(location, forecastItems);
+                        window.meteogram = new Meteogram(forecastItems, 'container', location);
                     } else {
-                        //show the error message when the remote server is not available
-                        self.refs.container.innerHTML = '<i class="fa fa-frown-o"></i> Failed loading data, please try again later';
+                        //we try three times if the API call failed
+                        if (self.state.resendingCount < 3) {
+                            self.setState({ resendingCount: self.state.resendingCount + 1 });
+                            self.getWeatherForecast(location);
+                            return
+                        } else {
+                            //show the error message when the remote server is not available
+                            self.refs.container.innerHTML = '<i class="fa fa-frown-o"></i> Failed loading data, please try again later';
+                        }
                     }
-                }
-                //Ending loading animation
-                self.endLoading();
-            });
+                    //Ending loading animation
+                    self.endLoading();
+                });
+        }
     }
 
 
