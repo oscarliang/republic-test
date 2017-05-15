@@ -1,6 +1,12 @@
+**Note: Due to the yahoo API sometime does not reply the results, If you see the message of " Failed loading data, please try again later".**
+**Please click the refresh button to re-call the Yahoo API**
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+Install the app library
 
 ### `npm start`
 
@@ -20,6 +26,4 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**

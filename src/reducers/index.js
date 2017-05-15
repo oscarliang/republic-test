@@ -3,13 +3,11 @@ import { routerReducer } from 'react-router-redux'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 
 /* Global reducers */
-import photoReducer from './photo/photo-reducer'
-import cityReducer from './city/city-reducer'
+import locationReducer from './location/location-reducer'
 
 
 const reducers = combineReducers({
-    photoState: photoReducer,
-    cityState: cityReducer,
+    locationState: locationReducer,
     loadingBar: loadingBarReducer,
     routing: routerReducer
 });

@@ -1,38 +1,94 @@
-import React from 'react';
-import $ from 'jquery';
-import Meteogram from '../../components/weather/weather'; 
+import React from 'react'
+import { connect } from 'react-redux'
+import Meteogram from '../../components/weather/weather'
+import AutoComplete from '../../components/autocomplete/autocomplete'
+import * as actions from '../../actions/location-actions'
+import { getWeatherAPI } from '../../api/weather-api'
+import store from '../../store'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 class WeatherContainer extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props)
+        this.state = {
+            keywords: 'New York, NY, United States', //init New York as default city
+            returnGeoCode: false,
+            loadingText: "Loading data from external source",
+            refreshIconState: true  //refresh button status
+        }
+    }
 
-    componentDidMount() {
+    componentWillReceiveProps(nextProps) {
+        if (typeof nextProps !== 'undefined' && nextProps !== null) {
+            let location = nextProps.searchkeywords;
 
-        var place = 'United_Kingdom/England/London';
-        //place = 'France/Rhône-Alpes/Val_d\'Isère~2971074';
-        //place = 'Norway/Sogn_og_Fjordane/Vik/Målset';
-        //place = 'United_States/California/San_Francisco';
-        //place = 'United_States/Minnesota/Minneapolis';
-        location.hash = 'https://www.yr.no/place/' + place + '/forecast_hour_by_hour.xml';
+            //call the weather API
+            this.getWeatherForecast(location);
+        }
+    }
 
-        $.ajax({
-            dataType: 'json',
-            url: 'https://www.highcharts.com/samples/data/jsonp.php?url=' + location.hash.substr(1) + '&callback=?',
-            success: function (xml) {
-                window.meteogram = new Meteogram(xml, 'container');
-            },
-            error: Meteogram.prototype.error
-        });
+    /**
+     * Start loading animation
+     */
+    beginLoading() {
+        //show the loading bar
+        store.dispatch(showLoading())
+        this.setState({
+            refreshIconState: true
+        })
+    }
+
+    /**
+     * Ending loading animation
+     */
+    endLoading() {
+        //hide the loading bar
+        store.dispatch(hideLoading());
+        //stop the page refreshing
+        store.dispatch(actions.setLocationRefresh(false));
+        this.setState({
+            refreshIconState: false
+        })
+    }
+
+    /**
+     * Get the weather forecast data
+     */
+    getWeatherForecast(location) {
+        var self = this;
+        self.refs.container.innerHTML = '<i class="fa fa-smile-o"></i> ' + this.state.loadingText;
+        self.beginLoading();
+
+        getWeatherAPI(location)
+            .done((rs) => {
+                if (rs.query.results !== null) {
+                    let json = rs.query.results.channel.item;
+                    window.meteogram = new Meteogram(json, 'container', location);
+                } else {
+                    self.refs.container.innerHTML = '<i class="fa fa-frown-o"></i> Failed loading data, please try again later';
+                }
+                self.endLoading();
+            });
     }
 
     render() {
-        return <div id="container" >
-            <div id="loading">
-                <i ></i> Loading data from external source
-    </div>
-        </div>
+        return (
+            <div>
+                <AutoComplete ref="autoComplete" keywords={this.state.keywords} returnGeoCode={this.state.returnGeoCode} refreshIconState={this.state.refreshIconState} />
+                <div id="container" ref="container">
+                    <div id="loading">
+                        {this.state.loadingText}
+                    </div>
+                </div>
+            </div>
+        );
     }
+
 }
 
-export default WeatherContainer;
+const mapStateToProps = (store) => ({
+    searchkeywords: store.locationState.searchkeywords,
+    searchkeywordsRefresh: store.locationState.searchkeywordsRefresh
+});
+
+export default connect(mapStateToProps)(WeatherContainer)

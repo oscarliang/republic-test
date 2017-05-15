@@ -2912,10 +2912,10 @@ header.navbar {
     margin-right: 0;
     padding: 0.5rem 1rem;
     background-color: #1e8fc6;
-    background-image: url("../img/lendi1.png");
+    background-image: url("../img/logo.png");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 90px auto; }
+    background-size: 150px auto; }
   header.navbar .navbar-nav {
     flex-direction: row;
     align-items: center; }

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * GenesisUI - Bootstrap 4 Admin Template
  * @version v1.7.1
@@ -5,7 +6,6 @@
  * Copyright (c) 2017 creativeLabs Łukasz Holeczek
  * @license Commercial
  */
-@charset "UTF-8";
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
@@ -2912,10 +2912,10 @@ header.navbar {
     margin-right: 0;
     padding: 0.5rem 1rem;
     background-color: #1e8fc6;
-    background-image: url("../img/lendi.png");
+    background-image: url("../img/logo.png");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 90px auto; }
+    background-size: 150px auto; }
   header.navbar .navbar-nav {
     flex-direction: row;
     align-items: center; }
@@ -11137,7 +11137,7 @@ body {
     padding-left: 7.5px; }
 
 .main .container-fluid {
-  padding: 0 30px; }
+  padding: 0 30px 50px 0; }
 
 @media all and (-ms-high-contrast: none) {
   html {
@@ -13796,6 +13796,54 @@ nav.sidebar-nav .form-control, nav.sidebar-nav .daterangepicker .input-mini, .da
 .aside-menu .nav-tabs .nav-link,
 .aside-menu .callout {
   border-radius: 0; }
+
+#container {
+  width: 1000px;
+  height: 310px;
+  margin: 0 auto; }
+
+.autocompleteWrapper {
+  width: 950px; }
+
+.locationRefresh {
+  position: relative;
+  left: -40px;
+  top: 30px;
+  font-size: 24px; }
+
+.icon-refresh-animate {
+  -webkit-animation: spin 1s infinite linear;
+  /* Safari 4+ */
+  -moz-animation: spin 1s infinite linear;
+  /* Fx 5+ */
+  -o-animation: spin 1s infinite linear;
+  /* Opera 12+ */
+  animation: spin 1s infinite linear;
+  /* IE 10+ */ }
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg); }
+  to {
+    -moz-transform: rotate(360deg); } }
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+@-o-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
 
 .email-app {
   display: flex;

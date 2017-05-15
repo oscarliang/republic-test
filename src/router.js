@@ -22,12 +22,8 @@ const AppRouter = ({ store }) => {
 	return (
 		<Router history={history}>
 			<Route path="/" name="Home" component={Full}>
-				<IndexRoute component={containers.PhotoContainer}/>
-				<Route path="photo" name="Photo" component={containers.PhotoContainer}/>
-				<Route path="donut" name="Donut" component={containers.DonutContainer}/>
-				<Route path="weather" name="Weather" component={containers.WeatherContainer}/>
-				<Route path="city" name="City" component={containers.CityContainer}/>
-				<Route path="weather2" name="Weather Forecast" component={containers.Weather2Container}/>
+				<IndexRoute component={containers.WeatherContainer}/>
+				<Route path="weather" name="Weather Forecast" component={containers.WeatherContainer}/>
 			</Route>
 		</Router>
 	)

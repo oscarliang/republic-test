@@ -2,7 +2,7 @@ import React from 'react'
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import store from '../../store'
 import classNames from 'classnames'
-import * as actions from '../../actions/city-actions'
+import * as actions from '../../actions/location-actions'
 
 class AutoComplete extends React.Component {
     constructor(props) {
@@ -33,7 +33,7 @@ class AutoComplete extends React.Component {
         })
 
         // dispatch the search keywords to the store
-        store.dispatch(actions.setCitySearchkeywords(address));
+        store.dispatch(actions.setLocationSearchkeywords(address));
 
         if (this.state.returnGeoCode) {
             geocodeByAddress(address, (err, { lat, lng }) => {
@@ -58,7 +58,7 @@ class AutoComplete extends React.Component {
     }
 
     handlereFresh() {
-        store.dispatch(actions.setCityRefresh(true));
+        store.dispatch(actions.setLocationRefresh(true));
     }
 
     handleChange(address) {
