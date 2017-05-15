@@ -1,4 +1,4 @@
-
+ 
 ## Notes
 Due to the yahoo API sometime does not reply the results, If you see the message of " Failed loading data, please try again later".Please click the refresh button to re-call the Yahoo API
 
@@ -18,8 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](#running-tests) for more information.
+Launches the test runner in the interactive watch mode. The test cases is running by Jest Framework<br>
 
 ### `npm run build`
 

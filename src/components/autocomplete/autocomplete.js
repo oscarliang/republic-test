@@ -4,6 +4,9 @@ import store from '../../store'
 import classNames from 'classnames'
 import * as actions from '../../actions/location-actions'
 
+/**
+ * AutoComplete is a widget that used to implement with react-places-autocomplete widget
+ */
 class AutoComplete extends React.Component {
     constructor(props) {
         super(props)
@@ -35,6 +38,7 @@ class AutoComplete extends React.Component {
         // dispatch the search keywords to the store
         store.dispatch(actions.setLocationSearchkeywords(address));
 
+        //tag to decide will return Geo lat and lng or not
         if (this.state.returnGeoCode) {
             geocodeByAddress(address, (err, { lat, lng }) => {
                 if (err) {
@@ -57,10 +61,16 @@ class AutoComplete extends React.Component {
         }
     }
 
-    handlereFresh() {
+    /**
+     * Action when refresh icon is clicked
+     */
+    handlereRefresh() {
         store.dispatch(actions.setLocationRefresh(true));
     }
 
+    /**
+     * Action when the item in the location drop list is selected
+     */
     handleChange(address) {
         this.setState({
             address,
@@ -91,7 +101,7 @@ class AutoComplete extends React.Component {
             autocompleteContainer: 'Demo__autocomplete-container',
         }
 
-        // css className
+        // refresh icon className
         const refreshClasses = classNames(
             { 'fa': true },
             { 'fa-refresh': true },
@@ -122,7 +132,7 @@ class AutoComplete extends React.Component {
         return (
             <div className='row'>
                 <div className='container autocompleteWrapper'>
-                    <i id="refreshIcon" className={refreshClasses} aria-hidden="true" onClick={this.handlereFresh}></i>
+                    <i id="refreshIcon" className={refreshClasses} aria-hidden="true" onClick={this.handlereRefresh}></i>
                     <PlacesAutocomplete
                         onSelect={this.handleSelect}
                         autocompleteItem={AutocompleteItem}

@@ -13,8 +13,9 @@ class WeatherContainer extends React.Component {
         this.state = {
             keywords: 'New York, NY, United States', //init New York as default city
             returnGeoCode: false,
-            loadingText: "Loading data from external source",
-            refreshIconState: true  //refresh button status
+            loadingText: "Loading data from Yahoo Weather ...",
+            refreshIconState: true,  //refresh button status
+            resendingCount: 0 //count that identify if need to resend the API request or not
         }
     }
 
@@ -24,6 +25,9 @@ class WeatherContainer extends React.Component {
 
             //call the weather API
             this.getWeatherForecast(location);
+
+            //Start loading animation
+            this.beginLoading();
         }
     }
 
@@ -47,7 +51,8 @@ class WeatherContainer extends React.Component {
         //stop the page refreshing
         store.dispatch(actions.setLocationRefresh(false));
         this.setState({
-            refreshIconState: false
+            refreshIconState: false,
+            resendingCount: 0
         })
     }
 
@@ -57,19 +62,29 @@ class WeatherContainer extends React.Component {
     getWeatherForecast(location) {
         var self = this;
         self.refs.container.innerHTML = '<i class="fa fa-smile-o"></i> ' + this.state.loadingText;
-        self.beginLoading();
-
         getWeatherAPI(location)
             .done((rs) => {
+                //Yahoo API will have limit with request time. Sometime, can not get API result
                 if (rs.query.results !== null) {
-                    let json = rs.query.results.channel.item;
-                    window.meteogram = new Meteogram(json, 'container', location);
+                    let forecastItems = rs.query.results.channel.item;
+                    window.meteogram = new Meteogram(forecastItems, 'container', location);
                 } else {
-                    self.refs.container.innerHTML = '<i class="fa fa-frown-o"></i> Failed loading data, please try again later';
+                    //we try three times if the API call failed
+                    if (self.state.resendingCount < 3){
+                        self.setState({resendingCount: self.state.resendingCount + 1});
+                        self.getWeatherForecast(location);
+                        return
+                    } else {
+                        //show the error message when the remote server is not available
+                        self.refs.container.innerHTML = '<i class="fa fa-frown-o"></i> Failed loading data, please try again later';
+                    }
                 }
+                //Ending loading animation
                 self.endLoading();
             });
     }
+
+
 
     render() {
         return (

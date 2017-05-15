@@ -8,7 +8,7 @@ import AppRouter from './router'
 const rootElement = document.getElementById('root')
 
 render((
-	  <Provider store={store}>
+	<Provider store={store}>
 		<AppRouter store={store} />
-	  </Provider>
+	</Provider>
 ), rootElement)

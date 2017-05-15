@@ -1,8 +1,10 @@
 import Highcharts from 'highcharts';
 import $ from 'jquery';
 
-
-function Meteogram(json, container, title) {
+/**
+ * Meteogram is a widget that used to generate the weather spline and symbols by Highcharts
+ */
+function Meteogram(forecastItems, container, title) {
     // Parallel arrays for the chart data, these are populated as the XML/JSON file
     // is loaded
     this.symbols = [];
@@ -13,7 +15,7 @@ function Meteogram(json, container, title) {
     this.title = title;
 
     // Initialize
-    this.json = json;
+    this.json = forecastItems;
     this.container = container;
 
     // Run
@@ -275,7 +277,7 @@ Meteogram.prototype.getChartOptions = function () {
             marginRight: 40,
             marginTop: 50,
             plotBorderWidth: 1,
-            width: 1000,
+            width: 960,
             height: 310
         },
 
@@ -305,7 +307,7 @@ Meteogram.prototype.getChartOptions = function () {
             offset: 10,
             showLastLabel: true,
             labels: {
-                format: '{value:%m/%d}',
+                format: '{value:%d/%m}',
                 align: 'left',
                 x: 30
             }
@@ -450,6 +452,8 @@ Meteogram.prototype.getSymbolCodeByName = function (weatherName) {
         case "Partly Cloud":
             return "17";
         case "Breezy":
+            return "04";
+        case "Windy":
             return "04";
         default:
             break;

@@ -1,7 +1,6 @@
 import * as types from './action-types'
 
 /* location actions */
-
 export function setLocationSearchkeywords(searchkeywords) {
     return {
         type: types.SET_LOCATION_SEARCHKEYWORDS,
