@@ -6,6 +6,9 @@ import Footer from '../Footer/Footer';
 
 import Breadcrumbs from 'react-breadcrumbs';
 
+/**
+ * The layout of the whole site
+ */
 class Full extends React.Component {
   render() {
     return (

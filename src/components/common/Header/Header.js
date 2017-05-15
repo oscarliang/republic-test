@@ -1,6 +1,8 @@
 import React from 'react';
 import LoadingBar from 'react-redux-loading-bar'
-
+/**
+ * The header of the site
+ */
 class Header extends React.Component {
 
   sidebarToggle(e) {

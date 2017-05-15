@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import * as actions from '../../actions/location-actions'
 
 /**
- * AutoComplete is a widget that used to implement with react-places-autocomplete widget
+ * AutoComplete is a component that used to implement with react-places-autocomplete widget
  */
 class AutoComplete extends React.Component {
     constructor(props) {

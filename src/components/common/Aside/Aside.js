@@ -1,6 +1,8 @@
 import React from 'react';
 
-
+/**
+ * The aside part of the site
+ */
 class Aside extends React.Component {
   render() {
     return (

@@ -2,7 +2,7 @@ import Highcharts from 'highcharts';
 import $ from 'jquery';
 
 /**
- * Meteogram is a widget that used to generate the weather spline and symbols by Highcharts
+ * Meteogram is a component that used to generate the weather spline and symbols by Highcharts
  */
 function Meteogram(forecastItems, container, title) {
     // Parallel arrays for the chart data, these are populated as the XML/JSON file
