@@ -1,5 +1,9 @@
-**Note: Due to the yahoo API sometime does not reply the results, If you see the message of " Failed loading data, please try again later".**
-**Please click the refresh button to re-call the Yahoo API**
+
+## Notes
+Due to the yahoo API sometime does not reply the results, If you see the message of " Failed loading data, please try again later".<br>
+Please click the refresh button to re-call the Yahoo API
+
+This apps is only for the PC apps. The mobile version apps will be coming soon.
 
 ## Available Scripts
 

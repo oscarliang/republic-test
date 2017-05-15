@@ -1,6 +1,13 @@
 {
   "name": "republic-ui",
   "version": "1.0.0",
+  "keywords": [
+    "react",
+    "redux",
+    "highchart",
+    "yahoo weather",
+    "animation"
+  ],
   "private": true,
   "homepage": ".",
   "devDependencies": {
