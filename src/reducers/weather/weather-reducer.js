@@ -5,15 +5,15 @@ export const initialState = {
 	searchkeywordsRefresh: true
 }
 
-const locationReducer = (state = initialState, action) => {
+const weatherReducer = (state = initialState, action) => {
 
 	switch (action.type) {
-		case types.SET_LOCATION_SEARCHKEYWORDS:
+		case types.SET_WEATHER_SEARCHKEYWORDS:
 		return Object.assign({}, state, {
 			searchkeywords: action.searchkeywords
 		})
 
-		case types.SET_LOCATION_REFRESH:
+		case types.SET_WEATHER_REFRESH:
 		return Object.assign({}, state, {
 			searchkeywordsRefresh: action.searchkeywordsRefresh
 		})
@@ -24,4 +24,4 @@ const locationReducer = (state = initialState, action) => {
 	}
 }
 
-export default locationReducer;
+export default weatherReducer;

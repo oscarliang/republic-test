@@ -1,5 +1,5 @@
-import reducer from './location-reducer';
-import { SET_LOCATION_SEARCHKEYWORDS } from '../../actions/action-types'
+import reducer from './weather-reducer';
+import { SET_WEATHER_SEARCHKEYWORDS } from '../../actions/action-types'
 
 const initialState = {
   'searchkeywords': '',
@@ -13,7 +13,7 @@ describe('State should change after reducer triggered', () => {
       'searchkeywordsRefresh': true
     };
     const action = {
-      type: SET_LOCATION_SEARCHKEYWORDS,
+      type: SET_WEATHER_SEARCHKEYWORDS,
       searchkeywords: 'london'
     }
     expect(

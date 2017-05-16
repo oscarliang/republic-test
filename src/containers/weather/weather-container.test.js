@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import * as actions from '../../actions/location-actions'
+import * as actions from '../../actions/weather-actions'
 
 /*** Mock Google Maps JavaScript API ***/
 global.google = {
@@ -20,13 +20,13 @@ global.google = {
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const initialState = {
-    locationState: {
+    weatherState: {
         searchkeywords: '',
         searchkeywordsRefresh: true
     }
 }
 
-describe('locationContainer default', () => {
+describe('weatherContainer default', () => {
     let store;
     let wrapper;
 
@@ -47,12 +47,12 @@ describe('locationContainer default', () => {
 
 });
 
-describe('locationContainer with searchkeywords input field', () => {
+describe('weatherContainer with searchkeywords input field', () => {
     let store;
     let wrapper;
     beforeAll(() => {
         let curState = JSON.parse(JSON.stringify(initialState));
-        curState.locationState.searchkeywords = 'london'
+        curState.weatherState.searchkeywords = 'london'
         store = mockStore(curState);
         wrapper = mount(
             <WeatherContainer store={store} />

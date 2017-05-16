@@ -22,7 +22,7 @@ const ourRouterMiddleware = routerMiddleware(hashHistory);
 // have at hand :)
 const load = storage.createLoader(engine);
 
-const existingState = JSON.parse(localStorage.getItem('republic-weather-service-app'));
+const existingState = JSON.parse(localStorage.getItem('republic-weather-service-app') || null);
 
 let store = {};
 

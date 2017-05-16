@@ -2,7 +2,7 @@ import React from 'react'
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import store from '../../store'
 import classNames from 'classnames'
-import * as actions from '../../actions/location-actions'
+import * as actions from '../../actions/weather-actions'
 
 /**
  * AutoComplete is a component that used to implement with react-places-autocomplete widget
@@ -36,7 +36,7 @@ class AutoComplete extends React.Component {
         })
 
         // dispatch the search keywords to the store
-        store.dispatch(actions.setLocationSearchkeywords(address));
+        store.dispatch(actions.setWeatherSearchkeywords(address));
 
         //tag to decide will return Geo lat and lng or not
         if (this.state.returnGeoCode) {
@@ -65,11 +65,11 @@ class AutoComplete extends React.Component {
      * Action when refresh icon is clicked
      */
     handlereRefresh() {
-        store.dispatch(actions.setLocationRefresh(true));
+        store.dispatch(actions.setWeatherRefresh(true));
     }
 
     /**
-     * Action when the item in the location drop list is selected
+     * Action when the item in the weather drop list is selected
      */
     handleChange(address) {
         this.setState({

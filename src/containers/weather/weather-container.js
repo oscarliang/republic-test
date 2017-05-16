@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Meteogram from '../../components/weather/weather'
 import AutoComplete from '../../components/autocomplete/autocomplete'
-import * as actions from '../../actions/location-actions'
+import * as actions from '../../actions/weather-actions'
 import { getWeatherAPI } from '../../api/weather-api'
 import store from '../../store'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
@@ -51,7 +51,7 @@ class WeatherContainer extends React.Component {
         //hide the loading bar
         store.dispatch(hideLoading());
         //stop the page refreshing
-        store.dispatch(actions.setLocationRefresh(false));
+        store.dispatch(actions.setWeatherRefresh(false));
         this.setState({
             refreshIconState: false,
             resendingCount: 0
@@ -117,8 +117,8 @@ class WeatherContainer extends React.Component {
 }
 
 const mapStateToProps = (store) => ({
-    searchkeywords: store.locationState.searchkeywords,
-    searchkeywordsRefresh: store.locationState.searchkeywordsRefresh
+    searchkeywords: store.weatherState.searchkeywords,
+    searchkeywordsRefresh: store.weatherState.searchkeywordsRefresh
 });
 
 export default connect(mapStateToProps)(WeatherContainer)

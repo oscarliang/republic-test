@@ -3,11 +3,11 @@ import { routerReducer } from 'react-router-redux'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 
 /* Global reducers */
-import locationReducer from './location/location-reducer'
+import weatherReducer from './weather/weather-reducer'
 
 
 const reducers = combineReducers({
-    locationState: locationReducer,
+    weatherState: weatherReducer,
     loadingBar: loadingBarReducer,
     routing: routerReducer
 });

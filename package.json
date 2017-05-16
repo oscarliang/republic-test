@@ -60,5 +60,8 @@
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "setupFiles": ["./__mocks__/localStorageMock.js"]
   }
 }
